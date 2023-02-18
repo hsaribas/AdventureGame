@@ -43,7 +43,7 @@ public class Player {
                 break;
         }
         System.out.println("==========");
-        System.out.println("You have picked " + this.getHero());
+        System.out.println("You have picked =>" + this.getHero());
     }
 
     public void heroProps(Heroes heroes) {
