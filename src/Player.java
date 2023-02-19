@@ -7,16 +7,18 @@ public class Player {
     private int gold;
     private String hero;
     private String playerName;
+    private Inventory inventory;
 
     private final Scanner scan = new Scanner(System.in);
 
     public Player(String playerName) {
         this.playerName = playerName;
+        this.inventory = new Inventory();
     }
 
     public void selectHero() {
-        Heroes[] heroList = {new Fighter(), new Archer(), new Knight()};
-        for (Heroes h : heroList) {
+        Hero[] heroList = {new Fighter(), new Archer(), new Knight()};
+        for (Hero h : heroList) {
             System.out.println("Hero: " + h.getHero() +
                     " | Id: " + h.getId() +
                     " | Damage: " + h.getDamage() +
@@ -43,18 +45,27 @@ public class Player {
                 break;
         }
         System.out.println("==========");
-        System.out.println("You have picked =>" + this.getHero());
+        System.out.println("You have picked => " + this.getHero());
     }
 
-    public void heroProps(Heroes heroes) {
-        this.setDamage(heroes.getDamage());
-        this.setHealth(heroes.getHealth());
-        this.setGold(heroes.getGold());
-        this.setHero(heroes.getHero());
+    public void heroProps(Hero hero) {
+        this.setDamage(hero.getDamage());
+        this.setHealth(hero.getHealth());
+        this.setGold(hero.getGold());
+        this.setHero(hero.getHero());
+    }
+
+    public void showInfo(){
+        System.out.println("Weapon: " + this.getInventory().getWeapon().getType() +
+                " | Armor: " + this.getInventory().getArmor().getType() +
+                " | Block: " + this.getInventory().getArmor().getBlock() +
+                " | Damage: " + this.getDamage() +
+                " | Health: " + this.getHealth() +
+                " | Gold: " + this.getGold());
     }
 
     public int getDamage() {
-        return damage;
+        return damage + this.getInventory().getWeapon().getDamage();
     }
 
     public void setDamage(int damage) {
@@ -91,5 +102,13 @@ public class Player {
 
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 }

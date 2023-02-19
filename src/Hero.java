@@ -1,4 +1,4 @@
-public abstract class Heroes {
+public abstract class Hero {
 
     private int id;
     private String hero;
@@ -6,7 +6,7 @@ public abstract class Heroes {
     private int health;
     private int gold;
 
-    public Heroes(int id, String hero, int damage, int health, int gold) {
+    public Hero(int id, String hero, int damage, int health, int gold) {
         this.id = id;
         this.hero = hero;
         this.damage = damage;

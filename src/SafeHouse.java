@@ -6,7 +6,8 @@ public class SafeHouse extends BaseLocation{
 
     @Override
     public boolean onLocation() {
-        System.out.println("Welcome to Safe House!\nYour health is renewed");
+        System.out.println();
+        System.out.println("Welcome to Safe House!\nYour health is renewed...");
         return true;
     }
 }
