@@ -4,8 +4,8 @@ public class Inventory {
     private Armor armor;
 
     public Inventory() {
-        this.weapon = new Weapon("Punch", 0, 0, 0);
-        this.armor = new Armor("Unarmored", 0, 0, 0);
+        this.weapon = new Weapon("Punch", -1, 0, 0);
+        this.armor = new Armor("Unarmored", -1, 0, 0);
     }
 
     public Weapon getWeapon() {

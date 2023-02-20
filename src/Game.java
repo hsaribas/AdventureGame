@@ -21,19 +21,36 @@ public class Game {
             System.out.println();
             player.showInfo();
             System.out.println("==========");
-            System.out.println("Areas\n1- Safe House\n2- Shop");
+            System.out.println("Areas\n1- Safe House\n2- Shop\n3- Cave\n4- Forest\n5- Desert\n0- Exit");
             System.out.print("Please pick one area you want to go by typing it's number: ");
             int pickedLocation = scan.nextInt();
             switch (pickedLocation) {
+                case 0:
+                    location = null;
+                    break;
                 case 1:
                     location = new SafeHouse(player);
                     break;
                 case 2:
                     location = new Shop(player);
                     break;
-                default:
-                    location = new SafeHouse(player);
+                case 3:
+                    location = new Cave(player);
                     break;
+                case 4:
+                    location = new Forest(player);
+                    break;
+                case 5:
+                    location = new Desert(player);
+                    break;
+                default:
+                    System.out.println("Please enter a valid number!");
+                    break;
+            }
+
+            if (location == null) {
+                System.out.println("See you again!");
+                break;
             }
 
             if (!location.onLocation()) {
