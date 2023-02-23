@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 public class Player {
 
+    private String hero;
     private int damage;
     private int health;
     private int gold;
-    private String hero;
     private String playerName;
     private Inventory inventory;
 
@@ -19,8 +19,8 @@ public class Player {
     public void selectHero() {
         Hero[] heroList = {new Fighter(), new Archer(), new Knight()};
         for (Hero h : heroList) {
-            System.out.println("Hero: " + h.getHero() +
-                    " | Id: " + h.getId() +
+            System.out.println("Id: " + h.getId() +
+                    " | Hero: " + h.getHero() +
                     " | Damage: " + h.getDamage() +
                     " | Health: " + h.getHealth() +
                     " | Gold: " + h.getGold());
@@ -49,23 +49,27 @@ public class Player {
     }
 
     public void heroProps(Hero hero) {
+        this.setHero(hero.getHero());
         this.setDamage(hero.getDamage());
         this.setHealth(hero.getHealth());
         this.setGold(hero.getGold());
-        this.setHero(hero.getHero());
     }
 
-    public void showInfo(){
+    public void showInfo() {
         System.out.println("Weapon: " + this.getInventory().getWeapon().getType() +
                 " | Armor: " + this.getInventory().getArmor().getType() +
                 " | Block: " + this.getInventory().getArmor().getBlock() +
-                " | Damage: " + this.getDamage() +
+                " | Damage: " + this.getTotalDamage() +
                 " | Health: " + this.getHealth() +
                 " | Gold: " + this.getGold());
     }
 
-    public int getDamage() {
+    public int getTotalDamage() {
         return damage + this.getInventory().getWeapon().getDamage();
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public void setDamage(int damage) {

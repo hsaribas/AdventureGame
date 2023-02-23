@@ -22,7 +22,7 @@ public class Game {
             player.showInfo();
             System.out.println("==========");
             System.out.println("Areas\n1- Safe House\n2- Shop\n3- Cave\n4- Forest\n5- Desert\n0- Exit");
-            System.out.print("Please pick one area you want to go by typing it's number: ");
+            System.out.print("Please pick one area you want to go to by typing it's number: ");
             int pickedLocation = scan.nextInt();
             switch (pickedLocation) {
                 case 0:
@@ -52,7 +52,6 @@ public class Game {
                 System.out.println("See you again!");
                 break;
             }
-
             if (!location.onLocation()) {
                 System.out.println("You Died\nGAME OVER!");
                 break;
