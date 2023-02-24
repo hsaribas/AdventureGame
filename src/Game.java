@@ -53,7 +53,7 @@ public class Game {
                 break;
             }
             if (!location.onLocation()) {
-                System.out.println("You Died\nGAME OVER!");
+                System.out.println("GAME OVER!");
                 break;
             }
         }

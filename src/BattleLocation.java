@@ -20,14 +20,12 @@ public abstract class BattleLocation extends Location {
         System.out.println("Hey! Are you ready to face to " + count + " of " + this.getMonster().getName());
         System.out.print("If you want to fight type F or if you want to escape type E -> ");
         String decision = scan.nextLine().toUpperCase();
-        if (decision.equals("F")) {
-            if (fight(count)) {
-                System.out.println("You defeated all monsters!");
-                return true;
-            }
+        if (decision.equals("F") && fight(count)) {
+            System.out.println("You defeated all monsters!");
+            return true;
         }
-        if(this.getPlayer().getHealth() < 0){
-            System.out.println("You are dead!");
+        if (this.getPlayer().getHealth() <= 0) {
+            System.out.println("You are died...");
             return false;
         }
         return true;
@@ -35,10 +33,11 @@ public abstract class BattleLocation extends Location {
 
     public boolean fight(int count) {
         for (int i = 1; i <= count; i++) {
+            this.getMonster().setHealth(this.getMonster().getDefaultHealth());
             System.out.println();
             playerStats();
             System.out.println();
-            monsterStats();
+            monsterStats(i);
             while (this.getPlayer().getHealth() > 0 && this.getMonster().getHealth() > 0) {
                 System.out.print("Press F for Fight or press E for Escape: ");
                 String choice = scan.nextLine().toUpperCase();
@@ -55,10 +54,19 @@ public abstract class BattleLocation extends Location {
                         this.getPlayer().setHealth(this.getPlayer().getHealth() - monsterDamage);
                         currentHealth();
                     }
+                } else {
+                    return false;
                 }
             }
+            if (this.getMonster().getHealth() < this.getPlayer().getHealth()) {
+                System.out.println("Great fight, You won!");
+                System.out.println(this.getMonster().getReward() + " gold earned as a reward.");
+                this.getPlayer().setGold(this.getPlayer().getGold() + this.getMonster().getReward());
+            } else {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 
     public void currentHealth() {
@@ -76,8 +84,8 @@ public abstract class BattleLocation extends Location {
                 " | Gold: " + this.getPlayer().getGold());
     }
 
-    public void monsterStats() {
-        System.out.println("<< " + this.getMonster().getName() + "'s Stats >>");
+    public void monsterStats(int i) {
+        System.out.println("<< " + i + ". " + this.getMonster().getName() + "'s Stats >>");
         System.out.println("Damage: " + this.getMonster().getDamage() +
                 " | Health: " + this.getMonster().getHealth() +
                 " | Reward: " + this.getMonster().getReward());
