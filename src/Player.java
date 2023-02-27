@@ -8,6 +8,7 @@ public class Player {
     private int gold;
     private String playerName;
     private Inventory inventory;
+    private int defaultHealth;
 
     private final Scanner scan = new Scanner(System.in);
 
@@ -53,6 +54,7 @@ public class Player {
         this.setDamage(hero.getDamage());
         this.setHealth(hero.getHealth());
         this.setGold(hero.getGold());
+        this.setDefaultHealth(hero.getHealth());
     }
 
     public void showInfo() {
@@ -81,6 +83,9 @@ public class Player {
     }
 
     public void setHealth(int health) {
+        if (health < 0) {
+            health = 0;
+        }
         this.health = health;
     }
 
@@ -114,5 +119,13 @@ public class Player {
 
     public void setInventory(Inventory inventory) {
         this.inventory = inventory;
+    }
+
+    public int getDefaultHealth() {
+        return defaultHealth;
+    }
+
+    public void setDefaultHealth(int defaultHealth) {
+        this.defaultHealth = defaultHealth;
     }
 }

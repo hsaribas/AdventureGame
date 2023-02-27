@@ -8,6 +8,7 @@ public class SafeHouse extends BaseLocation{
     public boolean onLocation() {
         System.out.println();
         System.out.println("Welcome to Safe House!\nYour health is renewed...");
+        this.getPlayer().setHealth(this.getPlayer().getDefaultHealth());
         return true;
     }
 }
