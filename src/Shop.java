@@ -6,17 +6,19 @@ public class Shop extends BaseLocation {
 
     @Override
     public boolean onLocation() {
-        System.out.println();
-        System.out.println("Welcome to Shop!\nPlease pick a number below to make a process... ");
+        System.out.println("====================");
+        System.out.println("Welcome to Shop!\nPlease pick a number below to make a process. ");
         boolean showMenu = true;
+
         while (showMenu) {
             System.out.println("1- Weapons\n2- Armors\n3- Exit");
             System.out.print("Your choice: ");
             int choice = scan.nextInt();
             while (choice < 1 || choice > 3) {
-                System.out.print("Invalid number, please try again: ");
+                System.out.print("Invalid number! Please try again: ");
                 choice = scan.nextInt();
             }
+
             switch (choice) {
                 case 1:
                     showWeapons();
@@ -50,7 +52,7 @@ public class Shop extends BaseLocation {
         System.out.print("Please pick a weapon: ");
         int selectWeapon = scan.nextInt();
         while (selectWeapon < 0 || selectWeapon > Weapon.weapons().length) {
-            System.out.print("Invalid number, please try again: ");
+            System.out.print("Invalid number! Please try again: ");
             selectWeapon = scan.nextInt();
         }
 
@@ -63,9 +65,7 @@ public class Shop extends BaseLocation {
                     int balance = this.getPlayer().getGold() - pickedWeapon.getPrice();
                     this.getPlayer().setGold(balance);
                     System.out.println("Weapon successfully purchased. Your remaining gold is: " + this.getPlayer().getGold());
-                    //System.out.println("Your previous weapon is: " + this.getPlayer().getInventory().getWeapon().getType());
                     this.getPlayer().getInventory().setWeapon(pickedWeapon);
-                    //System.out.println("Your current weapon is: " + this.getPlayer().getInventory().getWeapon().getType());
                 }
             }
         }
@@ -99,9 +99,7 @@ public class Shop extends BaseLocation {
                     int balance = this.getPlayer().getGold() - pickedArmor.getPrice();
                     this.getPlayer().setGold(balance);
                     System.out.println("Armor successfully purchased. Your remaining gold is: " + this.getPlayer().getGold());
-                    //System.out.println("Your previous weapon is: " + this.getPlayer().getInventory().getWeapon().getType());
                     this.getPlayer().getInventory().setArmor(pickedArmor);
-                    //System.out.println("Your current weapon is: " + this.getPlayer().getInventory().getWeapon().getType());
                 }
             }
         }

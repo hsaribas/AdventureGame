@@ -2,12 +2,12 @@ import java.util.Scanner;
 
 public class Player {
 
+    private String playerName;
+    private Inventory inventory;
     private String hero;
     private int damage;
     private int health;
     private int gold;
-    private String playerName;
-    private Inventory inventory;
     private int defaultHealth;
 
     private final Scanner scan = new Scanner(System.in);
@@ -26,7 +26,7 @@ public class Player {
                     " | Health: " + h.getHealth() +
                     " | Gold: " + h.getGold());
         }
-        System.out.println("==========");
+        System.out.println("====================");
 
         System.out.print("Please enter the id of the hero you want to pick: ");
         int pickedHero = scan.nextInt();
@@ -45,8 +45,8 @@ public class Player {
                 selectHero();
                 break;
         }
-        System.out.println("==========");
-        System.out.println("You have picked => " + this.getHero());
+        System.out.println("====================");
+        System.out.println("Your pick is => " + this.getHero());
     }
 
     public void heroProps(Hero hero) {
@@ -63,7 +63,24 @@ public class Player {
                 " | Block: " + this.getInventory().getArmor().getBlock() +
                 " | Damage: " + this.getTotalDamage() +
                 " | Health: " + this.getHealth() +
-                " | Gold: " + this.getGold());
+                " | Gold: " + this.getGold() +
+                " | Materials: " + this.getInventory().getMaterialList());
+    }
+
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
+
+    public Inventory getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(Inventory inventory) {
+        this.inventory = inventory;
     }
 
     public int getTotalDamage() {
@@ -103,22 +120,6 @@ public class Player {
 
     public void setHero(String hero) {
         this.hero = hero;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public Inventory getInventory() {
-        return inventory;
-    }
-
-    public void setInventory(Inventory inventory) {
-        this.inventory = inventory;
     }
 
     public int getDefaultHealth() {

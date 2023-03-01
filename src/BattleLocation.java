@@ -3,22 +3,22 @@ import java.util.Random;
 public abstract class BattleLocation extends Location {
 
     private Monster monster;
-    private String reward;
+    private Material material;
     private int numMons;
 
-    public BattleLocation(Player player, String location, Monster monster, String reward, int numMons) {
+    public BattleLocation(Player player, String location, Monster monster, Material material, int numMons) {
         super(player, location);
         this.monster = monster;
-        this.reward = reward;
+        this.material = material;
         this.numMons = numMons;
     }
 
     @Override
     public boolean onLocation() {
         int count = randomMonsters();
-        System.out.println("Now you are in the " + this.getLocation());
-        System.out.println("Hey! Are you ready to face to " + count + " of " + this.getMonster().getName());
-        System.out.print("If you want to fight type F or if you want to escape type E -> ");
+        System.out.println("Now you are in " + this.getLocation());
+        System.out.println("Hey! Are you ready to face to " + count + " of " + this.getMonster().getName() + "?");
+        System.out.print("If you want to fight type F or if you want to escape type E: ");
         String decision = scan.nextLine().toUpperCase();
         if (decision.equals("F") && fight(count)) {
             System.out.println("You defeated all monsters!");
@@ -32,6 +32,7 @@ public abstract class BattleLocation extends Location {
     }
 
     public boolean fight(int count) {
+        int num = count;
         for (int i = 1; i <= count; i++) {
             this.getMonster().setHealth(this.getMonster().getDefaultHealth());
             System.out.println();
@@ -39,9 +40,10 @@ public abstract class BattleLocation extends Location {
             System.out.println();
             monsterStats(i);
             while (this.getPlayer().getHealth() > 0 && this.getMonster().getHealth() > 0) {
-                System.out.print("Press F for Fight or press E for Escape: ");
+                System.out.println();
+                System.out.print("Press C to continue or press R to retreat: ");
                 String choice = scan.nextLine().toUpperCase();
-                if (choice.equals("F")) {
+                if (choice.equals("C")) {
                     this.getMonster().setHealth(this.getMonster().getHealth() - this.getPlayer().getTotalDamage());
                     System.out.println();
                     currentHealth();
@@ -60,8 +62,13 @@ public abstract class BattleLocation extends Location {
             }
             if (this.getMonster().getHealth() < this.getPlayer().getHealth()) {
                 System.out.println("Great fight, You won!");
-                System.out.println(this.getMonster().getReward() + " gold earned as a reward.");
+                System.out.println(this.getMonster().getReward() + " gold earned.");
                 this.getPlayer().setGold(this.getPlayer().getGold() + this.getMonster().getReward());
+                num--;
+                if(num == 0){
+                    this.getPlayer().getInventory().setMaterialList(this.getMaterial());
+                    System.out.println("You passed this area. Switch to next zone.");
+                }
             } else {
                 return false;
             }
@@ -70,8 +77,8 @@ public abstract class BattleLocation extends Location {
     }
 
     public void currentHealth() {
-        System.out.println("Your Health: " + this.getPlayer().getHealth());
-        System.out.println(this.getMonster().getName() + "'s Health: " + this.getMonster().getHealth());
+        System.out.println("Your health: " + this.getPlayer().getHealth());
+        System.out.println(this.getMonster().getName() + "'s health: " + this.getMonster().getHealth());
     }
 
     public void playerStats() {
@@ -104,12 +111,12 @@ public abstract class BattleLocation extends Location {
         this.monster = monster;
     }
 
-    public String getReward() {
-        return reward;
+    public Material getMaterial() {
+        return material;
     }
 
-    public void setReward(String reward) {
-        this.reward = reward;
+    public void setMaterial(Material material) {
+        this.material = material;
     }
 
     public int getNumMons() {
