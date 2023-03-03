@@ -4,7 +4,6 @@ public abstract class Location {
 
     private Player player;
     private String location;
-
     public static Scanner scan = new Scanner(System.in);
 
     public Location(Player player, String location){

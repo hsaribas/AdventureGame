@@ -9,7 +9,6 @@ public class Player {
     private int health;
     private int gold;
     private int defaultHealth;
-
     private final Scanner scan = new Scanner(System.in);
 
     public Player(String playerName) {
