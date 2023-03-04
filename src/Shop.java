@@ -6,12 +6,12 @@ public class Shop extends BaseLocation {
 
     @Override
     public boolean onLocation() {
-        System.out.println("====================");
         System.out.println("Welcome to Shop!\nPlease pick a number below to make a process. ");
         boolean showMenu = true;
 
         while (showMenu) {
             System.out.println("1- Weapons\n2- Armors\n3- Exit");
+            System.out.println();
             System.out.print("Your choice: ");
             int choice = scan.nextInt();
             while (choice < 1 || choice > 3) {
@@ -22,10 +22,12 @@ public class Shop extends BaseLocation {
             switch (choice) {
                 case 1:
                     showWeapons();
+                    System.out.println();
                     buyWeapon();
                     break;
                 case 2:
                     showArmors();
+                    System.out.println();
                     buyArmor();
                     break;
                 case 3:
@@ -38,6 +40,7 @@ public class Shop extends BaseLocation {
     }
 
     public void showWeapons() {
+        System.out.println();
         System.out.println("----> Weapons <----");
         for (Weapon w : Weapon.weapons()) {
             System.out.println("Weapon: " + w.getType() +
@@ -66,12 +69,14 @@ public class Shop extends BaseLocation {
                     this.getPlayer().setGold(balance);
                     System.out.println("Weapon successfully purchased. Your remaining gold is: " + this.getPlayer().getGold());
                     this.getPlayer().getInventory().setWeapon(pickedWeapon);
+                    System.out.println();
                 }
             }
         }
     }
 
     public void showArmors() {
+        System.out.println();
         System.out.println("----> Armors <----");
         for (Armor a : Armor.armors()) {
             System.out.println("Armor: " + a.getType() +
@@ -100,6 +105,7 @@ public class Shop extends BaseLocation {
                     this.getPlayer().setGold(balance);
                     System.out.println("Armor successfully purchased. Your remaining gold is: " + this.getPlayer().getGold());
                     this.getPlayer().getInventory().setArmor(pickedArmor);
+                    System.out.println();
                 }
             }
         }

@@ -1,15 +1,15 @@
 public class Monster {
 
     private int id;
-    private String name;
+    private String monster;
     private int damage;
     private int health;
     private int reward;
     private int defaultHealth;
 
-    public Monster(int id, String name, int damage, int health, int reward) {
+    public Monster(int id, String monster, int damage, int health, int reward) {
         this.id = id;
-        this.name = name;
+        this.monster = monster;
         this.damage = damage;
         this.health = health;
         this.reward = reward;
@@ -24,12 +24,12 @@ public class Monster {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMonster() {
+        return monster;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMonster(String monster) {
+        this.monster = monster;
     }
 
     public int getDamage() {

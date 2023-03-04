@@ -17,11 +17,10 @@ public abstract class BattleLocation extends Location {
     public boolean onLocation() {
         int count = randomMonsters();
         System.out.println("Now you are in " + this.getLocation() + ".");
-        System.out.println("Hey! Are you ready to face to " + count + " of " + this.getMonster().getName() + "?");
+        System.out.println("Hey! Are you ready to face to " + count + " of " + this.getMonster().getMonster() + "?");
         System.out.print("If you want to fight type 'F' or if you want to escape type 'E': ");
         String decision = scan.nextLine().toUpperCase();
         if (decision.equals("F") && fight(count)) {
-            System.out.println();
             System.out.println("You defeated all monsters!");
             return true;
         }
@@ -37,7 +36,7 @@ public abstract class BattleLocation extends Location {
         int num = count;
         for (int i = 1; i <= count; i++) {
             this.getMonster().setHealth(this.getMonster().getDefaultHealth());
-            System.out.println();
+            System.out.println("====================");
             playerStats();
             System.out.println();
             monsterStats(i);
@@ -47,11 +46,11 @@ public abstract class BattleLocation extends Location {
             if (attack == 1) {
                 System.out.println("You will attack first!");
             } else {
-                System.out.println(this.getMonster().getName() + " will attack first!");
+                System.out.println(this.getMonster().getMonster() + " will attack first!");
             }
 
             while (this.getPlayer().getHealth() > 0 && this.getMonster().getHealth() > 0) {
-                System.out.println();
+                System.out.println("====================");
                 System.out.print("Press 'C' to continue or press 'R' to retreat: ");
                 String choice = scan.nextLine().toUpperCase();
                 if (choice.equals("C")) {
@@ -69,12 +68,14 @@ public abstract class BattleLocation extends Location {
                             currentHealth();
                         }
                     } else {
-                        this.getPlayer().setHealth(this.getPlayer().getHealth() - this.getMonster().getDamage());
                         System.out.println();
+                        int monsterDamage = this.getMonster().getDamage() - this.getPlayer().getInventory().getArmor().getBlock();
+                        if (monsterDamage < 0) {
+                            monsterDamage = 0;
+                        }
+                        this.getPlayer().setHealth(this.getPlayer().getHealth() - monsterDamage);
                         currentHealth();
-                        if (this.getPlayer().getHealth() < 0) {
-                            this.getPlayer().setHealth(0);
-                        } else {
+                        if (this.getPlayer().getHealth() > 0) {
                             this.getMonster().setHealth(this.getMonster().getHealth() - this.getPlayer().getTotalDamage());
                             System.out.println();
                             currentHealth();
@@ -92,20 +93,11 @@ public abstract class BattleLocation extends Location {
                 num--;
                 if (num == 0) {
                     System.out.println();
-                    if (this.getPlayer().getInventory().getMaterialList().contains(this.getMaterial())) {
-                        System.out.println(this.getLocation() + " -> You have already earned this region's material, you cannot earn it again.");
-                    } else {
-                        System.out.println("New material obtained -> " + this.getMaterial());
-                        this.getPlayer().getInventory().setMaterialList(this.getMaterial());
-                    }
+                    System.out.println("New material obtained! => " + this.getMaterial());
+                    this.getPlayer().getInventory().setMaterialList(this.getMaterial());
                 }
             } else {
                 return false;
-            }
-            if (this.getPlayer().getInventory().getMaterialList().contains("Food") &&
-                    this.getPlayer().getInventory().getMaterialList().contains("Wood") &&
-                    this.getPlayer().getInventory().getMaterialList().contains("Water")) {
-                System.out.println("Congratulations! You collected all the materials.");
             }
         }
         return true;
@@ -113,7 +105,7 @@ public abstract class BattleLocation extends Location {
 
     public void currentHealth() {
         System.out.println("Your health: " + this.getPlayer().getHealth());
-        System.out.println(this.getMonster().getName() + "'s health: " + this.getMonster().getHealth());
+        System.out.println(this.getMonster().getMonster() + "'s health: " + this.getMonster().getHealth());
     }
 
     public void playerStats() {
@@ -127,7 +119,7 @@ public abstract class BattleLocation extends Location {
     }
 
     public void monsterStats(int i) {
-        System.out.println("<< " + i + ". " + this.getMonster().getName() + "'s Stats >>");
+        System.out.println("<< " + i + ". " + this.getMonster().getMonster() + "'s Stats >>");
         System.out.println("Damage: " + this.getMonster().getDamage() +
                 " | Health: " + this.getMonster().getHealth() +
                 " | Reward: " + this.getMonster().getReward());

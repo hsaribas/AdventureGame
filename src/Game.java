@@ -2,9 +2,9 @@ import java.util.Scanner;
 
 public class Game {
 
-    private final Scanner scan = new Scanner(System.in);
     private Player player;
     private Location location;
+    private final Scanner scan = new Scanner(System.in);
 
     public void start() {
         System.out.println("Welcome to Jumanji!");
@@ -24,12 +24,12 @@ public class Game {
             game();
 
             if (location == null) {
-                System.out.println("====================");
+                System.out.println();
                 System.out.println("See you again!");
                 break;
             }
             if (!location.onLocation()) {
-                System.out.println("====================");
+                System.out.println();
                 System.out.println("GAME OVER!");
                 break;
             }
@@ -48,18 +48,38 @@ public class Game {
                 break;
             case 1:
                 location = new SafeHouse(player);
+                if (this.player.getInventory().getMaterialList().contains("Food") &&
+                        this.player.getInventory().getMaterialList().contains("Wood") &&
+                        this.player.getInventory().getMaterialList().contains("Water")) {
+                    System.out.println("You collected all the materials.\n\n* * * Congratulations! * * *\n* * * You Won the Game * * *");
+                }
                 break;
             case 2:
                 location = new Shop(player);
                 break;
             case 3:
-                location = new Cave(player);
+                if(this.player.getInventory().getMaterialList().contains("Food")){
+                    System.out.println("You have already crossed this area and captured the material. You cannot re-enter the zone.");
+                    game();
+                }else{
+                    location = new Cave(player);
+                }
                 break;
             case 4:
-                location = new Forest(player);
+                if(this.player.getInventory().getMaterialList().contains("Wood")){
+                    System.out.println("You have already crossed this area and captured the material. You cannot re-enter the zone.");
+                    game();
+                }else{
+                    location = new Forest(player);
+                }
                 break;
             case 5:
-                location = new Desert(player);
+                if(this.player.getInventory().getMaterialList().contains("Water")){
+                    System.out.println("You have already crossed this area and captured the material. You cannot re-enter the zone.");
+                    game();
+                }else{
+                    location = new Desert(player);
+                }
                 break;
             default:
                 System.out.println("Please enter a valid number!");
