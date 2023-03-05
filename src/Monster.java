@@ -1,3 +1,5 @@
+import java.util.Random;
+
 public class Monster {
 
     private int id;
@@ -14,6 +16,21 @@ public class Monster {
         this.health = health;
         this.reward = reward;
         this.defaultHealth = health;
+    }
+
+    public int random(){
+        Random r = new Random();
+        return r.nextInt(this.getDamage()) + 1;
+    }
+
+    public int randomDamage(){
+        int ranDam = random();
+        if(ranDam < 3){
+            ranDam = 3;
+        }else if(ranDam > 6){
+            ranDam = 6;
+        }
+        return ranDam;
     }
 
     public int getId() {

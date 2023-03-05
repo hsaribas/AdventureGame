@@ -38,7 +38,7 @@ public class Game {
 
     public void game(){
         System.out.println("====================");
-        System.out.println("Areas:\n1- Safe House\n2- Shop\n3- Cave\n4- Forest\n5- Desert");
+        System.out.println("Areas:\n1- Safe House\n2- Shop\n3- Cave\n4- Forest\n5- Desert\n6- Swamp");
         System.out.print("Please pick one area you want to go to by typing its number: ");
         int pickedLocation = scan.nextInt();
         System.out.println("====================");
@@ -80,6 +80,9 @@ public class Game {
                 }else{
                     location = new Desert(player);
                 }
+                break;
+            case 6:
+                location = new Swamp(player);
                 break;
             default:
                 System.out.println("Please enter a valid number!");
